@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"> </script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#button").click(function() {
+          $.post("http://paperprototype.cloudapp.net/Instrument.php", 
+            { "Instrument" : $("#content")[0].value},
+            function(data, status) {
+              alert(status + " - " + data );
+            });
+        });
+      }); 
+    </script>
+  </head>
+  <body>
+    <input type="textbox" id="content" style="width:480"></input>
+    <input type="button" value="Click Me!" id='button'></input>
+  </body>
+</html>
