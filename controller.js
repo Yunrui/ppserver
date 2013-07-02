@@ -2,17 +2,17 @@ $(document).ready(function () {
     var data = {
         datasets: [
             {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+            },
+            {
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
                 pointStrokeColor: "#fff"
             },
-            {
-                fillColor: "rgba(151,187,205,0.5)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-            }
         ]
     }
 
@@ -103,6 +103,7 @@ $(document).ready(function () {
     // JSONP doesn't work with HBase REST
     $.ajax({
         type: "GET",
+	dataType: "json",
         contentType: "application/json; charset=utf-8",
         url: 'http://paperprototype.cloudapp.net/UserIncrease.php',
         data: {},
@@ -123,19 +124,4 @@ $(document).ready(function () {
             var myNewChart = new Chart(ctx).Line(data, options);
         }
     });
-
-
-
-    // Get this format from web service
-    var result = [
-        { date: "2013-07-02", device: 12, user: 11 },
-        { date: "2013-07-03", device: 22, user: 21 },
-        { date: "2013-07-04", device: 36, user: 31 },
-        { date: "2013-07-05", device: 41, user: 31 },
-        { date: "2013-07-06", device: 34, user: 21 },
-        { date: "2013-07-07", device: 31, user: 21 },
-        { date: "2013-07-08", device: 47, user: 47 },
-        { date: "2013-07-09", device: 24, user: 20 },
-        { date: "2013-07-10", device: 15, user: 12 },
-    ];
 });
