@@ -1,15 +1,4 @@
 $(document).ready(function () {
-    // JSONP doesn't work with HBase REST
-    $.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        url: 'http://paperprototype.cloudapp.net/UserIncrease.php',
-        data: {},
-        success: function (obj) {
-            alert(obj);
-        }
-    });
-
     var data = {
         datasets: [
             {
@@ -25,29 +14,6 @@ $(document).ready(function () {
                 pointStrokeColor: "#fff",
             }
         ]
-    }
-
-    // Get this format from web service
-    var result = [
-        { date: "2013-07-02", device: 12, user: 11 },
-        { date: "2013-07-03", device: 22, user: 21 },
-        { date: "2013-07-04", device: 36, user: 31 },
-        { date: "2013-07-05", device: 41, user: 31 },
-        { date: "2013-07-06", device: 34, user: 21 },
-        { date: "2013-07-07", device: 31, user: 21 },
-        { date: "2013-07-08", device: 47, user: 47 },
-        { date: "2013-07-09", device: 24, user: 20 },
-        { date: "2013-07-10", device: 15, user: 12 },
-    ];
-
-    data.labels = [];
-    data.datasets[0].data = [];
-    data.datasets[1].data = [];
-
-    for (var i = 0; i < result.length; i++) {
-        data.labels.push(result[i].date);
-        data.datasets[0].data.push(result[i].device);
-        data.datasets[1].data.push(result[i].user);
     }
 
     var options = {
@@ -134,8 +100,42 @@ $(document).ready(function () {
 
     }
 
-    //Get context with jQuery - using jQuery's .get() method.
-    var ctx = $("#myChart").get(0).getContext("2d");
-    //This will get the first returned node in the jQuery collection.
-    var myNewChart = new Chart(ctx).Line(data, options);
+    // JSONP doesn't work with HBase REST
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: 'http://paperprototype.cloudapp.net/UserIncrease.php',
+        data: {},
+        success: function (result) {
+            data.labels = [];
+            data.datasets[0].data = [];
+            data.datasets[1].data = [];
+
+            for (var i = 0; i < result.length; i++) {
+                data.labels.push(result[i].date);
+                data.datasets[0].data.push(result[i].device);
+                data.datasets[1].data.push(result[i].user);
+            }
+
+            //Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#myChart").get(0).getContext("2d");
+            //This will get the first returned node in the jQuery collection.
+            var myNewChart = new Chart(ctx).Line(data, options);
+        }
+    });
+
+
+
+    // Get this format from web service
+    var result = [
+        { date: "2013-07-02", device: 12, user: 11 },
+        { date: "2013-07-03", device: 22, user: 21 },
+        { date: "2013-07-04", device: 36, user: 31 },
+        { date: "2013-07-05", device: 41, user: 31 },
+        { date: "2013-07-06", device: 34, user: 21 },
+        { date: "2013-07-07", device: 31, user: 21 },
+        { date: "2013-07-08", device: 47, user: 47 },
+        { date: "2013-07-09", device: 24, user: 20 },
+        { date: "2013-07-10", device: 15, user: 12 },
+    ];
 });
